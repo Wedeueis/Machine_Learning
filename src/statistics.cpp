@@ -1,5 +1,9 @@
 #include "../inc/statistics.hpp"
 
+/*
+Auxiliary class to calculate characteristics from the data distribution 
+*/
+
 using namespace std;
 
 Statistics::Statistics(size_t featuresSize){
@@ -58,7 +62,7 @@ vector<double> Statistics::getStdDev(vector<Sample> data) {
   return std_dev;
 }
 
-vector<Sample> Statistics::getNormalizedData(vector<Sample> data){
+vector<Sample> Statistics::normalize(vector<Sample> data){
 	vector<Sample> samples;
 	vector<double> norm(data[0].features.size());
 

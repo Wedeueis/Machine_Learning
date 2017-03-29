@@ -1,7 +1,17 @@
 #include "../inc/data.hpp"
 
-Data::Data(std::string filename){
+/*
+Container class from the samples stored in csv format
+The datatype parameter defines if the features are labeled(for supervised tasks)
+*/
+
+Data::Data(std::string filename, datatype type){
   init(filename);
+  this->type = type;
+}
+
+Data::Data(datatype type){
+  this->type = type;
 }
 
 Data::~Data(){
@@ -75,8 +85,10 @@ void Data::read(std::string filename) {
             }
         }
         Sample sample;
-        sample.label = std::stoi(fields.back());
-        fields.pop_back();
+        if(type == LABELED){
+          sample.label = std::stoi(fields.back());
+          fields.pop_back();
+        }
         std::vector<double> doubleVector(fields.size());
         std::transform(fields.begin(), fields.end(), doubleVector.begin(),
                 [](std::string const& val) {return std::stod(val);});
@@ -86,6 +98,14 @@ void Data::read(std::string filename) {
         }
         setSize = lines;
 
+}
+
+std::vector<Sample> Data::getData(){
+  return this->data;
+}
+
+std::vector<Sample> Data::getNormalizedData(){
+  return this->norm_data;
 }
 
 std::vector<double> Data::mean(){
@@ -101,6 +121,6 @@ std::vector<double> Data::std_dev(){
 }
 
 void Data::normalize(){
-  norm_data = st.getNormalizedData(data);
+  norm_data = st.normalize(data);
 }
 

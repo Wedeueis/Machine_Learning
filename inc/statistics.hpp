@@ -3,6 +3,10 @@
 #include <algorithm>
 #include <iostream>
 
+/*
+Auxiliary class to calculate characteristics from the data distribution 
+*/
+
 struct Sample{
 	std::vector<double> features;
 	int label;
@@ -17,9 +21,9 @@ public:
 	std::vector<double> getMean(std::vector<Sample>);
 	std::vector<double> getVariance(std::vector<Sample>);
 	std::vector<double> getStdDev(std::vector<Sample>);
-	std::vector<Sample> getNormalizedData(std::vector<Sample>);
+	std::vector<Sample> normalize(std::vector<Sample>);
 	void setChange(int, bool);
-//private:
+private:
 	std::vector<double> mean;
 	std::vector<double> variance;
 	std::vector<double> std_dev;
